@@ -4,8 +4,7 @@ import connectDB from './database/db.js';
 
 dotenv.config();
 
-//calling db connection
-// connectDB();
+connectDB();
 
 const app = express();
 
