@@ -5,7 +5,7 @@ import { courseApi } from "@/features/api/courseApi";
 
 export const appStore = configureStore({
     reducer: rootReducer,
-    middleware: (defaultMiddleware) => defaultMiddleware().concat(authApi.middleware, courseApi.middleware),
+    middleware: (defaultMiddleware) => defaultMiddleware().concat(authApi.middleware, courseApi.middleware, purchaseApi.middleware, courseProgressApi.middleware),
 });
 
 const initializeApp = async () => {
