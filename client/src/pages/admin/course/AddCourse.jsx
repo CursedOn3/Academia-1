@@ -20,7 +20,8 @@ const AddCourse = () => {
   const [courseTitle, setCourseTitle] = useState("");
   const [category, setCategory] = useState("");
 
-  const [createCourse, { data, isLoading, error, isSuccess }] = useCreateCourseMutation();
+  const [createCourse, { data, isLoading, error, isSuccess }] =
+    useCreateCourseMutation();
 
   const navigate = useNavigate();
 

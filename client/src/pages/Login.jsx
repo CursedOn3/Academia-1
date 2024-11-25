@@ -1,3 +1,4 @@
+// McgPr7oX7v1mMcbN
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -108,7 +109,7 @@ const Login = () => {
                   name="name"
                   value={signupInput.name}
                   onChange={(e) => changeInputHandler(e, "signup")}
-                  placeholder="abc"
+                  placeholder="Enter your name"
                   required="true"
                 />
               </div>
@@ -119,7 +120,7 @@ const Login = () => {
                   name="email"
                   value={signupInput.email}
                   onChange={(e) => changeInputHandler(e, "signup")}
-                  placeholder="abc@xyz.com"
+                  placeholder="Enter your emial"
                   required="true"
                 />
               </div>
@@ -130,7 +131,7 @@ const Login = () => {
                   name="password"
                   value={signupInput.password}
                   onChange={(e) => changeInputHandler(e, "signup")}
-                  placeholder="Eg. xyz"
+                  placeholder="Enter password"
                   required="true"
                 />
               </div>
@@ -168,7 +169,7 @@ const Login = () => {
                   name="email"
                   value={loginInput.email}
                   onChange={(e) => changeInputHandler(e, "login")}
-                  placeholder="abc@xyz.com"
+                  placeholder="Enter emial"
                   required="true"
                 />
               </div>
@@ -179,7 +180,7 @@ const Login = () => {
                   name="password"
                   value={loginInput.password}
                   onChange={(e) => changeInputHandler(e, "login")}
-                  placeholder="xyz"
+                  placeholder="Enter Password"
                   required="true"
                 />
               </div>
