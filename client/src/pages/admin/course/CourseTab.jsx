@@ -73,6 +73,12 @@ const CourseTab = () => {
     setInput({ ...input, [name]: value });
   };
 
+  const selectCategory = (value) => {
+    setInput({ ...input, category: value });
+  };
+  const selectCourseLevel = (value) => {
+    setInput({ ...input, courseLevel: value });
+  };
   // get file
   const selectThumbnail = (e) => {
     const file = e.target.files?.[0];
@@ -165,19 +171,41 @@ const CourseTab = () => {
           <div className="flex items-center gap-5">
             <div>
               <Label>Category</Label>
-              <Input
-                type="text"
-                name="category"
-                value={input.category}
-                onChange={changeEventHandler}
-                placeholder="Enter Course Category"
-              />
+              <Select
+                defaultValue={input.category}
+                onValueChange={selectCategory}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Category</SelectLabel>
+                    <SelectItem value="Next JS">Next JS</SelectItem>
+                    <SelectItem value="Data Science">Data Science</SelectItem>
+                    <SelectItem value="Frontend Development">
+                      Frontend Development
+                    </SelectItem>
+                    <SelectItem value="Fullstack Development">
+                      Fullstack Development
+                    </SelectItem>
+                    <SelectItem value="MERN Stack Development">
+                      MERN Stack Development
+                    </SelectItem>
+                    <SelectItem value="Javascript">Javascript</SelectItem>
+                    <SelectItem value="Python">Python</SelectItem>
+                    <SelectItem value="Docker">Docker</SelectItem>
+                    <SelectItem value="MongoDB">MongoDB</SelectItem>
+                    <SelectItem value="HTML">HTML</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             <div>
               <Label>Course Level</Label>
               <Select
                 defaultValue={input.courseLevel}
-                onValueChange={(value) => setInput({ ...input, courseLevel: value })}
+                onValueChange={selectCourseLevel}
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select a course level" />
@@ -193,7 +221,7 @@ const CourseTab = () => {
               </Select>
             </div>
             <div>
-              <Label>Price in (NPR)</Label>
+              <Label>Price in (INR)</Label>
               <Input
                 type="number"
                 name="coursePrice"

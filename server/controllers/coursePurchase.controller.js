@@ -28,12 +28,12 @@ export const createCheckoutSession = async (req, res) => {
       line_items: [
         {
           price_data: {
-            currency: "npr",
+            currency: "inr",
             product_data: {
               name: course.courseTitle,
               images: [course.courseThumbnail],
             },
-            unit_amount: course.coursePrice * 100, // Amount in paisa (lowest denomination)
+            unit_amount: course.coursePrice * 100, // Amount in paise (lowest denomination)
           },
           quantity: 1,
         },
