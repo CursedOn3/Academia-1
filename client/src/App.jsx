@@ -16,9 +16,6 @@ import EditLecture from "./pages/admin/lecture/EditLecture";
 import CourseDetail from "./pages/student/CourseDetail";
 import CourseProgress from "./pages/student/CourseProgress";
 import SearchPage from "./pages/student/SearchPage";
-import InstructorSignup from "./pages/instructor/InstructorSignup";
-import InstructorPending from "./pages/instructor/InstructorPending";
-import ErrorPage from "./components/ErrorPage";
 import {
   AdminRoute,
   AuthenticatedUser,
@@ -31,7 +28,6 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -49,14 +45,6 @@ const appRouter = createBrowserRouter([
             <Login />
           </AuthenticatedUser>
         ),
-      },
-      {
-        path: "instructor-signup",
-        element: <InstructorSignup />,
-      },
-      {
-        path: "instructor-pending",
-        element: <InstructorPending />,
       },
       {
         path: "my-learning",
