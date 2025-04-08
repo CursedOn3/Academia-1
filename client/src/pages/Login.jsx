@@ -17,7 +17,7 @@ import {
 } from "@/features/api/authApi";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Login = () => {
@@ -65,19 +65,19 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if(registerIsSuccess && registerData){
-      toast.success(registerData.message || "Signup successful.")
+    if (registerIsSuccess && registerData) {
+      toast.success(registerData.message || "Signup successful.");
       setActiveTab("login"); // Switch to login tab after successful signup
     }
-    if(registerError){
+    if (registerError) {
       toast.error(registerError.data.message || "Signup Failed");
     }
-    if(loginIsSuccess && loginData){
+    if (loginIsSuccess && loginData) {
       toast.success(loginData.message || "Login successful.");
       navigate("/");
     }
-    if(loginError){ 
-      toast.error(loginError.data.message || "login Failed");
+    if (loginError) {
+      toast.error(loginError.data.message || "Login Failed");
     }
   }, [
     loginIsLoading,
@@ -91,8 +91,8 @@ const Login = () => {
   // Get the tab from URL if present
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const tab = searchParams.get('tab');
-    if (tab === 'signup' || tab === 'login') {
+    const tab = searchParams.get("tab");
+    if (tab === "signup" || tab === "login") {
       setActiveTab(tab);
     }
   }, []);
@@ -103,7 +103,11 @@ const Login = () => {
 
   return (
     <div className="flex items-center w-full justify-center mt-20">
-      <Tabs value={activeTab} onValueChange={handleTabChange} className="w-[400px]">
+      <Tabs
+        value={activeTab}
+        onValueChange={handleTabChange}
+        className="w-[400px]"
+      >
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="signup">Signup</TabsTrigger>
           <TabsTrigger value="login">Login</TabsTrigger>
@@ -129,7 +133,7 @@ const Login = () => {
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="username">Email</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   type="email"
                   name="email"
@@ -140,7 +144,7 @@ const Login = () => {
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="username">Password</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   type="password"
                   name="password"
@@ -151,10 +155,11 @@ const Login = () => {
                 />
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex flex-col items-center gap-4">
               <Button
                 disabled={registerIsLoading}
                 onClick={() => handleRegistration("signup")}
+                className="w-32"
               >
                 {registerIsLoading ? (
                   <>
@@ -165,6 +170,16 @@ const Login = () => {
                   "Signup"
                 )}
               </Button>
+              
+              <div className="text-center text-sm text-muted-foreground">
+                Want to teach on our platform?{" "}
+                <Link 
+                  to="/instructor-signup" 
+                  className="text-primary underline hover:text-primary/80"
+                >
+                  Signup as Instructor
+                </Link>
+              </div>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -178,9 +193,10 @@ const Login = () => {
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="space-y-1">
-                <Label htmlFor="current">Email</Label>
+                <Label htmlFor="login-email">Email</Label>
                 <Input
                   type="email"
+                  id="login-email"
                   name="email"
                   value={loginInput.email}
                   onChange={(e) => changeInputHandler(e, "login")}
@@ -189,9 +205,10 @@ const Login = () => {
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="new">Password</Label>
+                <Label htmlFor="login-password">Password</Label>
                 <Input
                   type="password"
+                  id="login-password"
                   name="password"
                   value={loginInput.password}
                   onChange={(e) => changeInputHandler(e, "login")}
@@ -200,10 +217,11 @@ const Login = () => {
                 />
               </div>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex justify-center">
               <Button
                 disabled={loginIsLoading}
                 onClick={() => handleRegistration("login")}
+                className="w-32"
               >
                 {loginIsLoading ? (
                   <>
@@ -221,4 +239,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;
