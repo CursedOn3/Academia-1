@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Login = () => {
+  const [activeTab, setActiveTab] = useState("login");
   const [signupInput, setSignupInput] = useState({
     name: "",
     email: "",
@@ -66,6 +67,7 @@ const Login = () => {
   useEffect(() => {
     if(registerIsSuccess && registerData){
       toast.success(registerData.message || "Signup successful.")
+      setActiveTab("login"); // Switch to login tab after successful signup
     }
     if(registerError){
       toast.error(registerError.data.message || "Signup Failed");
@@ -86,9 +88,22 @@ const Login = () => {
     registerError,
   ]);
 
+  // Get the tab from URL if present
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const tab = searchParams.get('tab');
+    if (tab === 'signup' || tab === 'login') {
+      setActiveTab(tab);
+    }
+  }, []);
+
+  const handleTabChange = (value) => {
+    setActiveTab(value);
+  };
+
   return (
     <div className="flex items-center w-full justify-center mt-20">
-      <Tabs defaultValue="login" className="w-[400px]">
+      <Tabs value={activeTab} onValueChange={handleTabChange} className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="signup">Signup</TabsTrigger>
           <TabsTrigger value="login">Login</TabsTrigger>
@@ -110,7 +125,7 @@ const Login = () => {
                   value={signupInput.name}
                   onChange={(e) => changeInputHandler(e, "signup")}
                   placeholder="Your name"
-                  required="true"
+                  required
                 />
               </div>
               <div className="space-y-1">
@@ -121,7 +136,7 @@ const Login = () => {
                   value={signupInput.email}
                   onChange={(e) => changeInputHandler(e, "signup")}
                   placeholder="Your email"
-                  required="true"
+                  required
                 />
               </div>
               <div className="space-y-1">
@@ -132,7 +147,7 @@ const Login = () => {
                   value={signupInput.password}
                   onChange={(e) => changeInputHandler(e, "signup")}
                   placeholder="Your password"
-                  required="true"
+                  required
                 />
               </div>
             </CardContent>
@@ -158,7 +173,7 @@ const Login = () => {
             <CardHeader>
               <CardTitle>Login</CardTitle>
               <CardDescription>
-                Login your password here. After signup, you'll be logged in.
+                Login with your email and password.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
@@ -170,7 +185,7 @@ const Login = () => {
                   value={loginInput.email}
                   onChange={(e) => changeInputHandler(e, "login")}
                   placeholder="Your email"
-                  required="true"
+                  required
                 />
               </div>
               <div className="space-y-1">
@@ -181,7 +196,7 @@ const Login = () => {
                   value={loginInput.password}
                   onChange={(e) => changeInputHandler(e, "login")}
                   placeholder="Your password"
-                  required="true"
+                  required
                 />
               </div>
             </CardContent>

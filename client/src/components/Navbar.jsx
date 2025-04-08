@@ -95,7 +95,7 @@ const Navbar = () => {
               <Button variant="outline" onClick={() => navigate("/login")}>
                 Login
               </Button>
-              <Button onClick={() => navigate("/login")}>Signup</Button>
+              <Button onClick={() => navigate("/login?tab=signup")}>Signup</Button>
             </div>
           )}
           <DarkMode />
@@ -104,7 +104,7 @@ const Navbar = () => {
       {/* Mobile device  */}
       <div className="flex md:hidden items-center justify-between px-4 h-full">
         <h1 className="font-extrabold text-2xl">Academia</h1>
-        <MobileNavbar user={user}/>
+        <MobileNavbar user={user} logoutHandler={logoutHandler}/>
       </div>
     </div>
   );
@@ -112,7 +112,7 @@ const Navbar = () => {
 
 export default Navbar;
 
-const MobileNavbar = ({user}) => {
+const MobileNavbar = ({user, logoutHandler}) => {
   const navigate = useNavigate();
   
   return (
@@ -133,9 +133,18 @@ const MobileNavbar = ({user}) => {
         </SheetHeader>
         <Separator className="mr-2" />
         <nav className="flex flex-col space-y-4">
-          <Link to="/my-learning">My Learning</Link>
-          <Link to="/profile">Edit Profile</Link>
-          <p>Log out</p>
+          {user ? (
+            <>
+              <Link to="/my-learning">My Learning</Link>
+              <Link to="/profile">Edit Profile</Link>
+              <p className="cursor-pointer" onClick={logoutHandler}>Log out</p>
+            </>
+          ) : (
+            <>
+              <p className="cursor-pointer" onClick={() => navigate("/login")}>Login</p>
+              <p className="cursor-pointer" onClick={() => navigate("/login?tab=signup")}>Signup</p>
+            </>
+          )}
         </nav>
         {user?.role === "instructor" && (
           <SheetFooter>
